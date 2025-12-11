@@ -115,7 +115,6 @@ class VibesGraphicsItem
     QGraphicsItem * _qGraphicsItem;
     QString _name;
     int _dimX, _dimY;
-    double _zValue; // if item is in a group, the distinction is needed between global ZValue and "group" ZValue
 public:
     enum { VibesGraphicsItemType = QGraphicsItem::UserType,
            // Group of item
@@ -167,8 +166,6 @@ public:
     void setName(QString name) { if (name != this->name()) { _name=name; if (scene()) scene()->setItemName(this, this->name()); } }
     VibesScene2D* scene() const { if (_qGraphicsItem) return static_cast<VibesScene2D*>( _qGraphicsItem->scene() ); else return 0;}
 
-    void setInitialZValue(double z) { _zValue = z; }
-    double initialZValue() const { return _zValue; }
     void setZValue(qreal z) { if (_qGraphicsItem) _qGraphicsItem->setZValue(z); }
     double zValue() const { if (_qGraphicsItem) return _qGraphicsItem->zValue(); else return 0.; }
 
