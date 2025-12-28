@@ -94,10 +94,6 @@ int main()
         VIBES_TEST( vibes::drawBoxes(boxes_bounds,"[darkYellow]") );
         VIBES_TEST( vibes::setFigureProperties(vibesParams("x",0,"y",40,"width",150,"height",150)) );
 
-        std::vector<int> dims;
-        dims.push_back(2); dims.push_back(3); dims.push_back(0); dims.push_back(1);
-        VIBES_TEST( vibes::axisDims(dims) ); //[#148]
-
         VIBES_TEST( vibes::newFigure("Megatest with boxes union") );
         VIBES_TEST( vibes::drawBoxesUnion(boxes_bounds,"[darkGreen]") );
         VIBES_TEST( vibes::setFigureProperties(vibesParams("x",150,"y",40,"width",150,"height",150)) );
