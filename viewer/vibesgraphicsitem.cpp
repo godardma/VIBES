@@ -100,7 +100,7 @@ QJsonValue VibesGraphicsItem::jsonValue(const QString& key) const
     {
         return json()[key];
     }
-        // Else, return the property from its parent group
+    // Else, return the property from its parent group
     else
     {
         const VibesGraphicsGroup* group = 0;
@@ -303,6 +303,11 @@ bool VibesGraphicsItem::parseJson(QJsonObject &json)
     if (json.contains("name") && json["name"].isString())
     {
         this->setName(json["name"].toString());
+    }
+
+    if (json.contains("ZValue") && json["ZValue"].isDouble())
+    {
+        this->setZValue(json["ZValue"].toDouble());
     }
 
     // LineStyle and LineWidth need no processing

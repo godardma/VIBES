@@ -342,6 +342,34 @@ int main()
     VIBES_TEST( vibes::axisAuto() );
 
 
+    // Notes on ZValues:
+    // ZValues have to be seen as a tree structure:
+    // groups are drawn by ascending ZValue order 
+    // items with no groups are treated as groups (with only one item)
+    // in a group, items are drawn by ascending ZValue order
+    // In definitive, Qt looks at the lowest ZValue group (or solo item), then draws it or all its items by ascending ZValue order,
+    // then goes to the second lowest ZValue group, etc. 
+    // Default ZValue is 0
+
+    VIBES_TEST( vibes::newFigure("ZValues") );
+
+    VIBES_TEST( vibes::drawBox(-1,0.5,0,1,vibesParams("ZValue",5,"FaceColor","red","EdgeColor","black")) );
+    VIBES_TEST( vibes::drawBox(-0.5,0.7,-0.5,0.5,vibesParams("ZValue",4.9,"FaceColor","green","EdgeColor","black")) );
+
+    VIBES_TEST( vibes::newGroup("circles",vibesParams("ZValue",4.5)));
+    VIBES_TEST( vibes::drawCircle(0,0,1,vibesParams("ZValue",10,"FaceColor","yellow","EdgeColor","black","group","circles")) );
+    VIBES_TEST( vibes::drawCircle(0.8,0,0.5,vibesParams("ZValue",4,"FaceColor","cyan","EdgeColor","black","group","circles")) );
+
+    VIBES_TEST( vibes::newGroup("circles_behind",vibesParams("ZValue",0))); // lowest than "circle" Zvalue, so it is "hidden" behind
+    VIBES_TEST( vibes::drawCircle(0,0.05,1,vibesParams("ZValue",15,"FaceColor","red","EdgeColor","black","group","circles_behind")) );
+    VIBES_TEST( vibes::drawCircle(0.8,0.05,0.5,vibesParams("ZValue",4,"FaceColor","green","EdgeColor","black","group","circles_behind")) );
+
+    // ZValue is 0, so it is behind the red and green boxes (ZValue 5 and 4.9) and the "circles" group (ZValue 4.5)
+    // but in front of the "circles_behind" group (ZValue 0) because they have the same ZValue, and it was drawn last
+    VIBES_TEST( vibes::drawBox(0,0.8,0,0.8,vibesParams("FaceColor","blue","EdgeColor","black")) ); 
+    VIBES_TEST( vibes::axisAuto() );
+
+
     /*  vibes::Params p2 = vibesParams("action", "draw",
                            "figure", "fig_name",
                            "shape", vibesParams("LineWidth",5,
