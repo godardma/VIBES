@@ -312,7 +312,8 @@ int main()
     VIBES_TEST( vibes::drawText(2,-2,"My Text",vibesParams("group","group"))) ;
     VIBES_TEST( vibes::drawText(2,2,"My Text", 0.1 , "b[k]") );
     VIBES_TEST( vibes::drawText(3,6,"My Text",vibesParams("FaceColor","red","EdgeColor","black","fontSize",15,"fontName","Cursive","name","Text") ) );
-
+    VIBES_TEST( vibes::showAxis(false) ); //[#148]
+    
 
 
     vibes::newFigure("test Raster");

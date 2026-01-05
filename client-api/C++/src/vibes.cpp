@@ -39,6 +39,10 @@ namespace vibes {
     std::string Value::toJSONString() const {
         std::ostringstream ss;
         switch (_type) {
+        case vt_bool: //[#148]
+            /*ss<<_bool;*/ // /!\ depends on std::noboolalpha (1,0) or std::boolalpha (true,false)
+            if(_bool){ ss<<"true"; } else{ ss<<"false"; }
+            break;
         case vt_integer:
             ss<<_integer; break;
         case vt_decimal:
@@ -247,6 +251,17 @@ namespace vibes
     beginDrawingIfNeeded();
     setFigureProperty( figureName.empty()?current_fig:figureName, "axislabels", labels);
   }
+
+  //-------------------------------------------------------------------------
+  //[>SHOWAXIS] [#148]
+  //-------------------------------------------------------------------------
+  void showAxis(bool visible, const std::string &figureName){
+    setFigureProperty(figureName.empty()?current_fig:figureName,
+                      "showAxis", visible);
+  }
+  //-------------------------------------------------------------------------
+  //[<SHOWAXIS]
+  //-------------------------------------------------------------------------
 
 
   //
